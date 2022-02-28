@@ -1,0 +1,41 @@
+class Solution {
+public:
+    
+    int helper(int curr,vector<int>&prices,int k,int *a){
+        
+        if(curr>=prices.size()){
+            return 0;
+        }
+        if(k==0){
+            return 0;
+        }
+        
+        if(a[curr]!=-1){
+            return a[curr];
+        }
+        
+        int c1=helper(curr+1,prices,k-1,a)+prices[curr];
+        int c2=helper(curr+1,prices,k,a);
+        return a[curr]=max(c1,c2);
+    }
+    
+    int maxProfit(vector<int>& prices) {
+        int m=INT_MIN;
+        int n=prices.size();
+        int a[n+1];
+        for(int i=0;i<=n;i++){
+           a[i]=-1;
+        }
+        for(int i=0;i<prices.size();i++){
+            if(i==prices.size()-1){
+                m=max(m,0);
+            }
+            else{
+            int c1=helper(i+1,prices,1,a)-prices[i];
+            m=max(m,c1);    
+            }
+            
+        }
+        return m;
+    }
+};
