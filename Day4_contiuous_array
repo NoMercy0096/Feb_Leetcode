@@ -1,0 +1,28 @@
+
+Day4:https://leetcode.com/problems/contiguous-array/
+
+
+class Solution {
+public:
+    int findMaxLength(vector<int>& nums) {
+        unordered_map<int,int>m;
+        int sum=0;
+        int maxL=0;
+        m[0]=-1;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]==0){
+                sum=sum-1;
+            }
+            else{
+                sum+=1;
+            }
+            if(m.count(sum)){
+                maxL=max(maxL,i-m[sum]);
+            }
+            else{
+                m[sum]=i;
+            }
+        }
+        return maxL;
+    }
+};
